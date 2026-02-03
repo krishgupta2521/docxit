@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Forensic Docx Autofill (Trial)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img class="brand-logo" src="assets/docxit-logo.png" alt="DOCXIT logo" />
+      <div>
+        <div class="brand-title">DOCXIT - Documentation Suite</div>
+        <div class="brand-subtitle">Enter case details once, generate all five documents</div>
+        <div class="brand-credit">Developed by Shivam Rawat</div>
+      </div>
+    </div>
+    <div class="top-actions">
+      <div class="action-group">
+        <div class="action-label">Current</div>
+        <button id="btn-export" class="btn">Download HTML</button>
+        <button id="btn-print" class="btn btn-ghost">Print</button>
+        <button id="btn-pdf-one" class="btn btn-ghost">Export PDF</button>
+        <button id="btn-docx-one" class="btn btn-ghost">Export Word</button>
+      </div>
+      <div class="action-group">
+        <div class="action-label">All Docs</div>
+        <button id="btn-pack" class="btn btn-ghost">Print Pack</button>
+        <button id="btn-pdf-all" class="btn btn-ghost">Export PDF</button>
+        <button id="btn-docx-all" class="btn btn-ghost">Export Word</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="panel form-panel">
+      <h2>Case Details</h2>
+      <div class="grid">
+        <label>Case Information
+          <input type="text" id="caseInformation" placeholder="Case title / case information" />
+        </label>
+        <label>Date of Search
+          <input type="date" id="dateOfSearch" />
+        </label>
+        <label>Conclusion Date
+          <input type="date" id="conclusionDate" />
+        </label>
+        <label>Premise Address
+          <input type="text" id="premiseAddress" placeholder="Address from case" />
+        </label>
+        <label>Party Name
+          <input type="text" id="partyName" placeholder="Party name" />
+        </label>
+        <label>Party Father Name
+          <input type="text" id="partyFatherName" placeholder="Father name" />
+        </label>
+        <label>Party Aadhaar
+          <input type="text" id="partyAadhaar" placeholder="Aadhaar" />
+        </label>
+        <label>Party Address
+          <input type="text" id="partyAddress" placeholder="Party address" />
+        </label>
+        <label>Authorized Officer
+          <input type="text" id="authorizedOfficer" placeholder="Authorized officer" />
+        </label>
+        <label>Digital Forensic Examiner
+          <input type="text" id="examinerName" placeholder="Examiner name" />
+        </label>
+        <label>Employed By
+          <input type="text" id="employedBy" placeholder="EnReach Solution" value="EnReach Solution" />
+        </label>
+      </div>
+
+      <h2>Device Details (Add Multiple)</h2>
+      <div class="grid">
+        <label>Device Type
+          <input type="text" id="deviceType" placeholder="Laptop / Mobile / HDD" />
+        </label>
+        <label>Device Name
+          <input type="text" id="deviceName" placeholder="Device name" />
+        </label>
+        <label>Make
+          <input type="text" id="deviceMake" placeholder="Make" />
+        </label>
+        <label>Size
+          <input type="text" id="deviceSize" placeholder="Size" />
+        </label>
+        <label>Model No
+          <input type="text" id="deviceModelNo" placeholder="Model number" />
+        </label>
+        <label>Serial No
+          <input type="text" id="deviceSerialNo" placeholder="Serial number" />
+        </label>
+        <label>IMEI 1
+          <input type="text" id="deviceImei1" placeholder="IMEI 1" />
+        </label>
+        <label>IMEI 2
+          <input type="text" id="deviceImei2" placeholder="IMEI 2" />
+        </label>
+      </div>
+      <div class="grid">
+        <label>
+          <input type="checkbox" id="includeMakeModel" checked />
+          Include Make/Model
+        </label>
+        <label>
+          <input type="checkbox" id="includeSerialSize" checked />
+          Include Serial/Size
+        </label>
+        <label>
+          <input type="checkbox" id="includeImei" checked />
+          Include IMEI
+        </label>
+      </div>
+
+      <h2>Hash & Imaging (per device)</h2>
+      <div class="grid">
+        <label>MD5
+          <input type="text" id="hashMd5" placeholder="MD5 checksum" />
+        </label>
+        <label>SHA1
+          <input type="text" id="hashSha1" placeholder="SHA1 checksum" />
+        </label>
+        <label>SHA256
+          <input type="text" id="hashSha256" placeholder="SHA256 checksum" />
+        </label>
+        <label>Imaging Software
+          <input type="text" id="imagingSoftware" placeholder="Software + version" />
+        </label>
+        <label>Action Taken
+          <input type="text" id="actionTaken" placeholder="Imaging / Extraction" />
+        </label>
+      </div>
+
+      <h2>Master / Working Copy</h2>
+      <div class="grid">
+        <label>Master Copy Make
+          <input type="text" id="masterCopyMake" />
+        </label>
+        <label>Master Copy Model
+          <input type="text" id="masterCopyModel" />
+        </label>
+        <label>Master Copy Serial
+          <input type="text" id="masterCopySerial" />
+        </label>
+        <label>Master Copy Size
+          <input type="text" id="masterCopySize" />
+        </label>
+        <label>Working Copy Make
+          <input type="text" id="workingCopyMake" />
+        </label>
+        <label>Working Copy Model
+          <input type="text" id="workingCopyModel" />
+        </label>
+        <label>Working Copy Serial
+          <input type="text" id="workingCopySerial" />
+        </label>
+        <label>Working Copy Size
+          <input type="text" id="workingCopySize" />
+        </label>
+      </div>
+      <div class="device-list">
+        <div class="device-row">
+          <button id="btn-add-master" class="btn btn-ghost">Add Master Copy</button>
+          <button id="btn-add-working" class="btn btn-ghost">Add Working Copy</button>
+          <button id="btn-clear-copies" class="btn btn-ghost">Clear Copy Form</button>
+        </div>
+        <div id="masterCopyList"></div>
+        <div id="workingCopyList"></div>
+      </div>
+
+      <h2>Sticker Copy Serial Numbers</h2>
+      <div class="grid">
+        <label>Working Copy Serial Number
+          <input type="text" id="stickerWorkingSerial" />
+        </label>
+        <label>Master Copy Serial Number
+          <input type="text" id="stickerMasterSerial" />
+        </label>
+      </div>
+
+      <h2>Devices in Case</h2>
+      <div class="device-list">
+        <div class="device-row">
+          <button id="btn-add-device" class="btn">Add Device</button>
+          <button id="btn-clear-device" class="btn btn-ghost">Clear Device Form</button>
+        </div>
+        <div id="deviceList"></div>
+      </div>
+
+      <h2>Custom Document (Optional)</h2>
+      <div class="grid">
+        <label>
+          <input type="checkbox" id="customEnabled" />
+          Enable Custom Document
+        </label>
+        <label>Document Title
+          <input type="text" id="customTitle" placeholder="Custom Document Title" />
+        </label>
+      </div>
+      <label>Paste Template (use {{field}} placeholders)
+        <textarea id="customTemplate" rows="8" placeholder="Example: Case: {{caseInformation}}"></textarea>
+      </label>
+      <label>Upload DOCX (optional)
+        <input type="file" id="customDocx" accept=".docx" />
+        <small class="muted">DOCX parsing will be enabled in desktop version.</small>
+      </label>
+      <div class="device-row">
+        <button id="btn-custom-docx" class="btn btn-ghost">Select DOCX (Desktop)</button>
+        <div id="customDocxStatus" class="muted">No file selected.</div>
+      </div>
+    </section>
+
+    <section class="panel preview-panel">
+      <div class="preview-meta">
+        <div class="meta-pill" id="metaCase">Case: —</div>
+        <div class="meta-pill" id="metaDate">DOS: —</div>
+        <div class="meta-pill" id="metaDevices">Devices: 0</div>
+        <div class="meta-pill" id="metaCustom">Custom: Off</div>
+      </div>
+      <div class="tabs" id="tabs">
+        <button class="tab active" data-doc="cert63">63A Certificate</button>
+        <button class="tab" data-doc="coc">Chain of Custody</button>
+        <button class="tab" data-doc="evidence">Evidence Collection</button>
+        <button class="tab" data-doc="job">Job Form</button>
+        <button class="tab" data-doc="sticker">Working/Master Sticker</button>
+        <button class="tab" data-doc="custom">Custom Doc</button>
+      </div>
+      <div id="preview" class="preview"></div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
