@@ -30,6 +30,17 @@ jobs:
       with:
         workspaces: './src-tauri -> target'
       
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: Install Python dependencies
+      run: pip install pillow
+    
+    - name: Generate App Icons
+      run: python tools/make_ico.py
+    
     - name: Install dependencies
       run: npm install
       
