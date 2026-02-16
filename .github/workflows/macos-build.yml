@@ -12,32 +12,47 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
         with:
-          targets: aarch64-apple-darwin
+          toolchain: stable
+          targets: aarch64-apple-darwin,x86_64-apple-darwin
+
+      - name: Rust cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: './src-tauri -> target'
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Install Python deps
+      - name: Install Python dependencies
         run: pip install -r tools/requirements.txt
 
-      - name: Generate App Icons
-        run: python tools/make_ico.py
+      - name: Install Node dependencies
+        run: npm install
 
-      - name: Install Tauri CLI
-        run: cargo install tauri-cli --version 1.6.2
+      - name: Build Tauri App
+        run: npm run tauri:build
 
-      - name: Build
-        run: cargo tauri build
-
-      - name: Upload Artifacts
+      - name: Upload DMG
         uses: actions/upload-artifact@v4
         with:
-          name: docxit-macos
-          path: |
-            src-tauri/target/release/bundle/dmg/*.dmg
-            src-tauri/target/release/bundle/macos/*.app
+          name: docxit-macos-dmg
+          path: src-tauri/target/release/bundle/dmg/*.dmg
+          if-no-files-found: warn
+
+      - name: Upload App Bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: docxit-macos-app
+          path: src-tauri/target/release/bundle/macos/*.app
+          if-no-files-found: warn
