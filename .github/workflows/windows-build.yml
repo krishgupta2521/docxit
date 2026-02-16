@@ -46,6 +46,12 @@ jobs:
       - name: Build Tauri App
         run: npm run tauri:build
 
+      - name: Upload raw exe
+        uses: actions/upload-artifact@v4
+        with:
+          name: docxit-raw-exe
+          path: src-tauri/target/release/*.exe
+
       - name: Upload NSIS Installer
         uses: actions/upload-artifact@v4
         with:
