@@ -1,0 +1,55 @@
+{
+  "name": "docxit",
+  "version": "0.1.0",
+  "description": "Forensic Documentation Suite - Generate documents with a single form",
+  "main": "electron-main.js",
+  "homepage": "./",
+  "scripts": {
+    "dev": "tauri dev",
+    "start": "tauri dev",
+    "build": "tauri build",
+    "build:win": "tauri build",
+    "electron:dev": "electron .",
+    "electron:build": "electron-builder",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build"
+  },
+  "dependencies": {
+    "python-shell": "^5.0.0",
+    "@tauri-apps/api": "^2.1.1",
+    "@tauri-apps/plugin-dialog": "^2.0.1"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.10.0",
+    "electron": "latest",
+    "electron-builder": "latest"
+  },
+  "build": {
+    "appId": "com.enreach.docxit",
+    "productName": "DOCXIT",
+    "directories": {
+      "buildResources": "assets"
+    },
+    "files": [
+      "electron-main.js",
+      "preload.js",
+      "web/**/*",
+      "tools/**/*",
+      "node_modules/**/*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/docxit-logo.png"
+    },
+    "portable": {
+      "artifactName": "DOCXIT-${version}-portable.exe"
+    }
+  }
+}

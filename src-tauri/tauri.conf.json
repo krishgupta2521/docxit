@@ -1,32 +1,60 @@
 {
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "DOCXIT - Documentation Suite",
+  "version": "0.1.0",
+  "identifier": "com.enreach.docxit",
   "build": {
     "beforeBuildCommand": "",
     "beforeDevCommand": "",
-    "devPath": "../web/index.html",
-    "distDir": "../web"
+    "frontendDist": "../web"
   },
-  "package": {
-    "productName": "Forensic Docx",
-    "version": "0.1.0"
-  },
-  "tauri": {
+  "app": {
     "windows": [
       {
-        "title": "Forensic Documentation",
-        "width": 1280,
-        "height": 840
+        "title": "DOCXIT - Forensic Documentation Suite",
+        "width": 1400,
+        "height": 900,
+        "minWidth": 1024,
+        "minHeight": 768,
+        "center": true,
+        "resizable": true,
+        "fullscreen": false,
+        "decorations": true
       }
     ],
     "security": {
       "csp": null
-    },
-    "allowlist": {
-      "dialog": {
-        "open": true
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "windows": {
+      "webviewInstallMode": {
+        "type": "downloadBootstrapper"
       },
-      "shell": {
-        "open": true
+      "allowDowngrades": false,
+      "wix": {
+        "language": "en-US"
       }
+    }
+  },
+  "plugins": {
+    "dialog": {
+      "all": true,
+      "open": true,
+      "save": true
+    },
+    "shell": {
+      "all": false,
+      "open": true
     }
   }
 }

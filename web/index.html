@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Forensic Docx Autofill (Trial)</title>
+  <title>DOCXIT - Forensic Documentation Suite</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -72,102 +72,204 @@
         </label>
       </div>
 
+      <h2>📱 Device Management</h2>
+      <div class="device-count-section">
+        <label style="font-weight: 600; font-size: 14px;">How many devices do you plan to add?
+          <input type="number" id="deviceCount" placeholder="e.g., 3" min="1" value="1" style="width: 100px; margin-left: 10px;" />
+          <small class="muted" style="display: block; margin-top: 4px;">You can always add more or remove devices later</small>
+        </label>
+      </div>
+
       <h2>Device Details (Add Multiple)</h2>
-      <div class="grid">
-        <label>Device Type
-          <input type="text" id="deviceType" placeholder="Laptop / Mobile / HDD" />
-        </label>
-        <label>Device Name
-          <input type="text" id="deviceName" placeholder="Device name" />
-        </label>
-        <label>Make
-          <input type="text" id="deviceMake" placeholder="Make" />
-        </label>
-        <label>Size
-          <input type="text" id="deviceSize" placeholder="Size" />
-        </label>
-        <label>Model No
-          <input type="text" id="deviceModelNo" placeholder="Model number" />
-        </label>
-        <label>Serial No
-          <input type="text" id="deviceSerialNo" placeholder="Serial number" />
-        </label>
-        <label>IMEI 1
-          <input type="text" id="deviceImei1" placeholder="IMEI 1" />
-        </label>
-        <label>IMEI 2
-          <input type="text" id="deviceImei2" placeholder="IMEI 2" />
-        </label>
-      </div>
-      <div class="grid">
-        <label>
-          <input type="checkbox" id="includeMakeModel" checked />
-          Include Make/Model
-        </label>
-        <label>
-          <input type="checkbox" id="includeSerialSize" checked />
-          Include Serial/Size
-        </label>
-        <label>
-          <input type="checkbox" id="includeImei" checked />
-          Include IMEI
-        </label>
-      </div>
-
-      <h2>Hash & Imaging (per device)</h2>
-      <div class="grid">
-        <label>MD5
-          <input type="text" id="hashMd5" placeholder="MD5 checksum" />
-        </label>
-        <label>SHA1
-          <input type="text" id="hashSha1" placeholder="SHA1 checksum" />
-        </label>
-        <label>SHA256
-          <input type="text" id="hashSha256" placeholder="SHA256 checksum" />
-        </label>
-        <label>Imaging Software
-          <input type="text" id="imagingSoftware" placeholder="Software + version" />
-        </label>
-        <label>Action Taken
-          <input type="text" id="actionTaken" placeholder="Imaging / Extraction" />
-        </label>
-      </div>
-
-      <h2>Master / Working Copy</h2>
-      <div class="grid">
-        <label>Master Copy Make
-          <input type="text" id="masterCopyMake" />
-        </label>
-        <label>Master Copy Model
-          <input type="text" id="masterCopyModel" />
-        </label>
-        <label>Master Copy Serial
-          <input type="text" id="masterCopySerial" />
-        </label>
-        <label>Master Copy Size
-          <input type="text" id="masterCopySize" />
-        </label>
-        <label>Working Copy Make
-          <input type="text" id="workingCopyMake" />
-        </label>
-        <label>Working Copy Model
-          <input type="text" id="workingCopyModel" />
-        </label>
-        <label>Working Copy Serial
-          <input type="text" id="workingCopySerial" />
-        </label>
-        <label>Working Copy Size
-          <input type="text" id="workingCopySize" />
-        </label>
-      </div>
-      <div class="device-list">
-        <div class="device-row">
-          <button id="btn-add-master" class="btn btn-ghost">Add Master Copy</button>
-          <button id="btn-add-working" class="btn btn-ghost">Add Working Copy</button>
-          <button id="btn-clear-copies" class="btn btn-ghost">Clear Copy Form</button>
+      <div class="device-form-card">
+        <div class="form-section">
+          <h3 class="form-section-title">📁 Device Identification</h3>
+          <label>Device User / Folder Name *
+            <input type="text" id="deviceLabel" placeholder="e.g., Party Name Device Details, Size (Serial Number) " />
+            <small class="muted">This will appear as a heading before device details in reports</small>
+          </label>
         </div>
-        <div id="masterCopyList"></div>
-        <div id="workingCopyList"></div>
+
+        <div class="form-section">
+          <h3 class="form-section-title">Device Specifications</h3>
+          <div class="field-selector">
+            <h4 style="font-size: 13px; margin: 0 0 10px 0; color: var(--muted);">Select which fields you need for this device:</h4>
+            <div class="checkbox-grid">
+              <label class="checkbox-label">
+                <input type="checkbox" id="useDeviceType" class="field-toggle" data-field="deviceType" />
+                <span>Device Type</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="useDeviceName" class="field-toggle" data-field="deviceName" />
+                <span>Device Name/Brand</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="useMake" class="field-toggle" data-field="deviceMake" checked />
+                <span>Make</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="useModel" class="field-toggle" data-field="deviceModelNo" checked />
+                <span>Model</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="useSerial" class="field-toggle" data-field="deviceSerialNo" checked />
+                <span>Serial Number</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="useSize" class="field-toggle" data-field="deviceSize" checked />
+                <span>Storage Size</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="useImei1" class="field-toggle" data-field="deviceImei1" />
+                <span>IMEI 1</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="useImei2" class="field-toggle" data-field="deviceImei2" />
+                <span>IMEI 2</span>
+              </label>
+            </div>
+          </div>
+          <div class="device-fields-grid">
+            <div class="field-wrapper" data-field-name="deviceType" style="display: none;">
+              <label>Device Type
+                <input type="text" id="deviceType" placeholder="Laptop / Mobile / HDD / Tablet" />
+              </label>
+            </div>
+            <div class="field-wrapper" data-field-name="deviceName" style="display: none;">
+              <label>Device Name/Brand
+                <input type="text" id="deviceName" placeholder="iPhone / Samsung / Dell" />
+              </label>
+            </div>
+            <div class="field-wrapper" data-field-name="deviceMake">
+              <label>Make
+                <input type="text" id="deviceMake" placeholder="Apple / Samsung / Dell" />
+              </label>
+            </div>
+            <div class="field-wrapper" data-field-name="deviceModelNo">
+              <label>Model
+                <input type="text" id="deviceModelNo" placeholder="Model number" />
+              </label>
+            </div>
+            <div class="field-wrapper" data-field-name="deviceSerialNo">
+              <label>Serial Number
+                <input type="text" id="deviceSerialNo" placeholder="Serial number" />
+              </label>
+            </div>
+            <div class="field-wrapper" data-field-name="deviceSize">
+              <label>Storage Size
+                <input type="text" id="deviceSize" placeholder="256GB / 1TB / 500GB" />
+              </label>
+            </div>
+            <div class="field-wrapper" data-field-name="deviceImei1" style="display: none;">
+              <label>IMEI 1
+                <input type="text" id="deviceImei1" placeholder="IMEI 1" />
+              </label>
+            </div>
+            <div class="field-wrapper" data-field-name="deviceImei2" style="display: none;">
+              <label>IMEI 2
+                <input type="text" id="deviceImei2" placeholder="IMEI 2" />
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section hash-section">
+          <h3 class="form-section-title">🔐 Hash Values & Imaging</h3>
+          <div class="hash-type-selector">
+            <label style="font-weight: 600; margin-bottom: 8px; display: block;">Select Hash Type:</label>
+            <div class="radio-group">
+              <label class="radio-label">
+                <input type="radio" name="hashType" value="md5sha1" checked />
+                <span>MD5 + SHA1 (Standard)</span>
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="hashType" value="sha256" />
+                <span>SHA256 Only</span>
+              </label>
+            </div>
+          </div>
+          <div class="hash-inputs">
+            <label>MD5 Hash *
+              <input type="text" id="hashMd5" placeholder="MD5 checksum" class="hash-input" />
+            </label>
+            <label>SHA1 Hash *
+              <input type="text" id="hashSha1" placeholder="SHA1 checksum" class="hash-input" />
+            </label>
+            <label>SHA256 Hash
+              <input type="text" id="hashSha256" placeholder="SHA256 checksum" class="hash-input" />
+            </label>
+          </div>
+          <div class="grid">
+            <label>Imaging Software Used
+              <input type="text" id="imagingSoftware" placeholder="FTK Imager / Cellebrite / EnCase" />
+            </label>
+            <label>Action Taken
+              <input type="text" id="actionTaken" placeholder="Full Imaging / Logical Extraction / Physical Extraction" />
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <h2>� Devices in Case</h2>
+      <div class="device-list-container">
+        <div id="deviceList" class="device-chips-container"></div>
+      </div>
+      <div class="device-actions">
+        <button id="btn-add-device" class="btn btn-primary">✅ Add Device to Case</button>
+        <button id="btn-clear-device" class="btn btn-ghost">🗑️ Clear Device Form</button>
+      </div>
+
+      <h2>�💾 Storage Copies (Master / Working)</h2>
+      <div class="copy-form-card">
+        <div class="copy-type-section">
+          <h3 class="form-section-title">Master Copy (Original Evidence)</h3>
+          <div class="grid">
+            <label>Storage Make
+              <input type="text" id="masterCopyMake" placeholder="Seagate / WD / Samsung" />
+            </label>
+            <label>Storage Model
+              <input type="text" id="masterCopyModel" placeholder="Model number" />
+            </label>
+            <label>Serial Number *
+              <input type="text" id="masterCopySerial" placeholder="Serial number" />
+            </label>
+            <label>Storage Size *
+              <input type="text" id="masterCopySize" placeholder="500GB / 1TB / 2TB" />
+            </label>
+          </div>
+          <button id="btn-add-master" class="btn">➕ Add Master Copy</button>
+        </div>
+
+        <div class="copy-type-section">
+          <h3 class="form-section-title">Working Copy (Analysis)</h3>
+          <div class="grid">
+            <label>Storage Make
+              <input type="text" id="workingCopyMake" placeholder="Seagate / WD / Samsung" />
+            </label>
+            <label>Storage Model
+              <input type="text" id="workingCopyModel" placeholder="Model number" />
+            </label>
+            <label>Serial Number *
+              <input type="text" id="workingCopySerial" placeholder="Serial number" />
+            </label>
+            <label>Storage Size *
+              <input type="text" id="workingCopySize" placeholder="500GB / 1TB / 2TB" />
+            </label>
+          </div>
+          <button id="btn-add-working" class="btn">➕ Add Working Copy</button>
+        </div>
+
+        <div class="copy-lists">
+          <div class="copy-list-section">
+            <h4>Master Copies Added:</h4>
+            <div id="masterCopyList"></div>
+          </div>
+          <div class="copy-list-section">
+            <h4>Working Copies Added:</h4>
+            <div id="workingCopyList"></div>
+          </div>
+        </div>
+        <button id="btn-clear-copies" class="btn btn-ghost">🗑️ Clear All Copy Forms</button>
       </div>
 
       <h2>Sticker Copy Serial Numbers</h2>
@@ -180,13 +282,32 @@
         </label>
       </div>
 
-      <h2>Devices in Case</h2>
-      <div class="device-list">
-        <div class="device-row">
-          <button id="btn-add-device" class="btn">Add Device</button>
-          <button id="btn-clear-device" class="btn btn-ghost">Clear Device Form</button>
-        </div>
-        <div id="deviceList"></div>
+      <h2>Job Form Options</h2>
+      <div class="grid">
+        <label>
+          <input type="checkbox" id="includeReviewAnalysis" checked />
+          Include Review & Analysis Section
+        </label>
+        <label>
+          <input type="checkbox" id="includeTeamCode" />
+          Include Team Code
+        </label>
+        <label>Team Code
+          <input type="text" id="teamCode" placeholder="Team code (optional)" />
+        </label>
+        <label>Number of Workstations Used
+          <input type="text" id="workstationsUsed" placeholder="e.g., 4" />
+        </label>
+      </div>
+      <div class="grid">
+        <label>Purpose for which obtained
+          <select id="jobPurpose">
+            <option value="Evidence">Evidence</option>
+            <option value="Found">Found</option>
+            <option value="Impounded">Impounded</option>
+            <option value="Others">Others</option>
+          </select>
+        </label>
       </div>
 
       <h2>Custom Document (Optional)</h2>
@@ -231,6 +352,7 @@
     </section>
   </main>
 
+  <script type="module" src="tauri-loader.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
